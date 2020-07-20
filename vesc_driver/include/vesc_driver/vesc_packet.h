@@ -42,9 +42,9 @@
 #include <cstdint>
 #include <cassert>
 #include <iterator>
+#include <memory>
 
 #include <boost/crc.hpp>
-#include <boost/shared_ptr.hpp>
 #include <boost/range/begin.hpp>
 #include <boost/range/distance.hpp>
 #include <boost/range/end.hpp>
@@ -129,14 +129,14 @@ public:
 
 protected:
     VescPacket(const std::string& name, const int16_t payload_size, const int16_t payload_id);
-    VescPacket(const std::string& name, boost::shared_ptr<VescFrame> raw);
+    VescPacket(const std::string& name, std::shared_ptr<VescFrame> raw);
 
 private:
     std::string name_;
 };
 
-typedef boost::shared_ptr<VescPacket>       VescPacketPtr;
-typedef boost::shared_ptr<VescPacket const> VescPacketConstPtr;
+typedef std::shared_ptr<VescPacket>       VescPacketPtr;
+typedef std::shared_ptr<VescPacket const> VescPacketConstPtr;
 
 /*------------------------------------------------------------------*/
 
@@ -145,7 +145,7 @@ typedef boost::shared_ptr<VescPacket const> VescPacketConstPtr;
  **/
 class VescPacketFWVersion : public VescPacket {
 public:
-    explicit VescPacketFWVersion(boost::shared_ptr<VescFrame> raw);
+    explicit VescPacketFWVersion(std::shared_ptr<VescFrame> raw);
 
     int16_t fwMajor() const;
     int16_t fwMinor() const;
@@ -168,7 +168,7 @@ public:
  **/
 class VescPacketValues : public VescPacket {
 public:
-    explicit VescPacketValues(boost::shared_ptr<VescFrame> raw);
+    explicit VescPacketValues(std::shared_ptr<VescFrame> raw);
 
     double getMosTemp() const;
     double getMotorTemp() const;

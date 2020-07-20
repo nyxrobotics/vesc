@@ -40,9 +40,9 @@
 #include <cassert>
 #include <cmath>
 #include <sstream>
-
-#include <boost/optional.hpp>
-#include <boost/bind.hpp>
+#include <functional>
+#include <memory>
+#include <optional>
 
 #include <ros/ros.h>
 #include <std_msgs/Float64.h>
@@ -60,18 +60,18 @@ public:
 private:
     // interface to the VESC
     VescInterface vesc_;
-    void vescPacketCallback(const boost::shared_ptr<VescPacket const>& packet);
+    void vescPacketCallback(const std::shared_ptr<VescPacket const>& packet);
     void vescErrorCallback(const std::string& error);
 
     // limits on VESC commands
     struct CommandLimit {
         CommandLimit(const ros::NodeHandle& nh, const std::string& str,
-                     const boost::optional<double>& min_lower = boost::optional<double>(),
-                     const boost::optional<double>& max_upper = boost::optional<double>());
+                     const std::optional<double>& min_lower = std::optional<double>(),
+                     const std::optional<double>& max_upper = std::optional<double>());
         double clip(double value);
-        std::string             name;
-        boost::optional<double> lower;
-        boost::optional<double> upper;
+        std::string           name;
+        std::optional<double> lower;
+        std::optional<double> upper;
     };
     CommandLimit duty_cycle_limit_;
     CommandLimit current_limit_;

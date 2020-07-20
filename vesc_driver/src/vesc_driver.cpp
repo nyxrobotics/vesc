@@ -128,9 +128,9 @@ void VescDriver::timerCallback(const ros::TimerEvent& event) {
     }
 }
 
-void VescDriver::vescPacketCallback(const boost::shared_ptr<VescPacket const>& packet) {
+void VescDriver::vescPacketCallback(const std::shared_ptr<VescPacket const>& packet) {
     if(packet->getName() == "Values") {
-        boost::shared_ptr<VescPacketValues const> values = boost::dynamic_pointer_cast<VescPacketValues const>(packet);
+        std::shared_ptr<VescPacketValues const> values = std::dynamic_pointer_cast<VescPacketValues const>(packet);
 
         vesc_msgs::VescStateStamped::Ptr state_msg(new vesc_msgs::VescStateStamped);
         state_msg->header.stamp            = ros::Time::now();
@@ -150,8 +150,8 @@ void VescDriver::vescPacketCallback(const boost::shared_ptr<VescPacket const>& p
 
         state_pub_.publish(state_msg);
     } else if(packet->getName() == "FWVersion") {
-        boost::shared_ptr<VescPacketFWVersion const> fw_version =
-            boost::dynamic_pointer_cast<VescPacketFWVersion const>(packet);
+        std::shared_ptr<VescPacketFWVersion const> fw_version =
+            std::dynamic_pointer_cast<VescPacketFWVersion const>(packet);
         // todo: might need lock here
         fw_version_major_ = fw_version->fwMajor();
         fw_version_minor_ = fw_version->fwMinor();
@@ -234,8 +234,8 @@ void VescDriver::servoCallback(const std_msgs::Float64::ConstPtr& servo) {
 }
 
 VescDriver::CommandLimit::CommandLimit(const ros::NodeHandle& nh, const std::string& str,
-                                       const boost::optional<double>& min_lower,
-                                       const boost::optional<double>& max_upper)
+                                       const std::optional<double>& min_lower,
+                                       const std::optional<double>& max_upper)
     : name(str) {
     // check if user's minimum value is outside of the range min_lower to max_upper
     double param_min;

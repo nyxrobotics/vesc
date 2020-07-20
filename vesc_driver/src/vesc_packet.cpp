@@ -102,7 +102,7 @@ VescPacket::VescPacket(const std::string& name, const int16_t payload_size, cons
  * @param name Packet name
  * @param raw Pointer of a frame
  **/
-VescPacket::VescPacket(const std::string& name, boost::shared_ptr<VescFrame> raw) : VescFrame(*raw), name_(name) {
+VescPacket::VescPacket(const std::string& name, std::shared_ptr<VescFrame> raw) : VescFrame(*raw), name_(name) {
 }
 
 /*------------------------------------------------------------------*/
@@ -111,7 +111,7 @@ VescPacket::VescPacket(const std::string& name, boost::shared_ptr<VescFrame> raw
  * @brief Constructor
  * @param raw Pointer of VescFrame
  **/
-VescPacketFWVersion::VescPacketFWVersion(boost::shared_ptr<VescFrame> raw) : VescPacket("FWVersion", raw) {
+VescPacketFWVersion::VescPacketFWVersion(std::shared_ptr<VescFrame> raw) : VescPacket("FWVersion", raw) {
 }
 
 /**
@@ -148,7 +148,7 @@ VescPacketRequestFWVersion::VescPacketRequestFWVersion() : VescPacket("RequestFW
 /**
  * @brief Constructor
  **/
-VescPacketValues::VescPacketValues(boost::shared_ptr<VescFrame> raw) : VescPacket("Values", raw) {
+VescPacketValues::VescPacketValues(std::shared_ptr<VescFrame> raw) : VescPacket("Values", raw) {
 }
 
 /**

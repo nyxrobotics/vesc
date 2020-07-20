@@ -19,11 +19,10 @@
 #ifndef VESC_HW_INTERFACE_VESC_HW_INTERFACE_H_
 #define VESC_HW_INTERFACE_VESC_HW_INTERFACE_H_
 
+#include <functional>
+#include <memory>
 #include <string>
 #include <cmath>
-
-#include <boost/bind.hpp>
-#include <boost/shared_ptr.hpp>
 
 #include <ros/ros.h>
 #include <serial/serial.h>
@@ -84,7 +83,7 @@ private:
     joint_limits_interface::VelocityJointSaturationInterface limit_velocity_interface_;
     joint_limits_interface::EffortJointSaturationInterface   limit_effort_interface_;
 
-    void packetCallback(const boost::shared_ptr<VescPacket const>&);
+    void packetCallback(const std::shared_ptr<VescPacket const>&);
     void errorCallback(const std::string&);
 };
 
