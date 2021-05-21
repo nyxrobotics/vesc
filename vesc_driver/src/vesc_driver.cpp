@@ -124,6 +124,7 @@ void VescDriver::timerCallback(const ros::TimerEvent& event)
   {
     // request version number, return packet will update the internal version numbers
     vesc_.requestFWVersion();
+    usleep(10000);
     if (fw_version_major_ >= 0 && fw_version_minor_ >= 0)
     {
       ROS_INFO("Port:[%s] Connected to VESC with firmware version %d.%d", info_portname_.c_str(), fw_version_major_, fw_version_minor_);
