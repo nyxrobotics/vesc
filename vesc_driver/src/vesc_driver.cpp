@@ -58,6 +58,7 @@ VescDriver::VescDriver(ros::NodeHandle nh, ros::NodeHandle private_nh)
     ros::shutdown();
     return;
   }
+  info_portname_ = port;
 
   // attempt to connect to the serial port
   try
@@ -125,8 +126,10 @@ void VescDriver::timerCallback(const ros::TimerEvent& event)
     vesc_.requestFWVersion();
     if (fw_version_major_ >= 0 && fw_version_minor_ >= 0)
     {
-      ROS_INFO("Connected to VESC with firmware version %d.%d", fw_version_major_, fw_version_minor_);
+      ROS_INFO("Port:[%s] Connected to VESC with firmware version %d.%d", info_portname_, fw_version_major_, fw_version_minor_);
       driver_mode_ = MODE_OPERATING;
+    }else{
+      ROS_FATAL("Port:[%s] Invalid VESC firmware version %d.%d", info_portname_, fw_version_major_, fw_version_minor_);
     }
   }
   else if (driver_mode_ == MODE_OPERATING)
